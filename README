@@ -1,0 +1,122 @@
+OpenPR-NB V1.16
+
+Available at http://www.openpr.org.cn
+
+Please read the LICENSE file before using OpenPR-NB.
+
+
+Table of Contents
+=================
+- Introduction
+- Installation
+- Data Format
+- Usage
+- Examples
+- Additional Information
+
+
+Introduction
+============
+OpenPR-NB is a C++ implementation of Naive Bayes Classifier, which is 
+a well-known generative classification algorithm for the application 
+such as text classification. The Naive Bayes algorithm requires the 
+probabilistic distribution to be discrete. OpenPR-NB uses the multinomial 
+event model for representation, the maximum likelihood estimate
+with a Laplace smoothing technique for learning parameters. A sparse-data 
+structure is defined to represent the feature vector in OpenPR-NB to seek higher 
+computational speed.
+
+
+Installation
+============
+
+On Linux system, type `make' to build the `nb_learn' and `nb_classify'
+programs. Run them without arguments to show the usages of them.
+
+On Windows system, refer to `Makefile' to build them, or use the pre-built
+binaries (in the directory `windows').
+
+
+Data Format
+===========
+
+The format of training and testing data file is:
+
+<label>	<index1>:<value1> <index2>:<value2> ...
+.
+.
+.
+
+Each line contains an instance and is ended by a '\n' character.
+
+<label> is an integer indicating the class id. The range of class id should be
+from 1 to the size of classes. For example, the class id is 1, 2, 3 and 4 for 
+a 4-class classification problem.
+ 
+<label> and <index>:<value> are sperated by a '\t' character. <index> is a postive
+integer denoting the feature id. The range of feature id should be from 1 to the size
+of feature set. For example, the feature id is 1, 2, ... 9 or 10 if the dimension of
+feature set is 10. Indices must be in ASCENDING order. <value> is a float denoting the 
+feature value. The value must be an INTEGER since Naive Bayes Algorithm requires the 
+probabilistic distribution to be discrete.
+
+If the feature value equals 0, the <index>:<value> is encouraged to be neglected
+for the consideration of storage space and computational speed.
+
+Labels in the testing file are only used to calculate accuracy or errors. 
+If they are unknown, just fill the first column with any class labels.
+
+
+Usuage
+======
+
+OpenPR-NB learning module
+
+usage: nb_learn [options] training_file model_file
+
+options: -h        -> help
+         -e [0,1]  -> 0: multi-variate Bernoulli event model
+                   -> 1: multinomial event model (default)
+         -s [0]    -> Laplace smoothing (default)
+
+
+OpenPR-NB classification module
+
+usage: nb_classify [options] testing_file model_file output_file
+
+options: -h        -> help
+         -e [0,1]  -> 0: multi-variate Bernoulli event model
+                   -> 1: multinomial event model (default)		
+         -f [0..2] -> 0: only output class label (default)
+                   -> 1: output class label with log-likelihood
+                   -> 2: output class label with probability
+
+
+Examples
+========
+
+The "data" directory contains a dataset of text classification task. This dataset 
+has six class labels and more than 250,000 features. 
+
+For learning with the default multinomial event model:
+
+> nb_learn data/train.samp data/nb.mod
+
+For learning with the multi-variate Bernoulli event model:
+
+> nb_learn -e 0 data/train.samp data/nb0.mod
+
+For classifing with the default multinomial event model and the default output format:
+
+> nb_classify data/test.samp data/nb.mod data/nb.out
+
+For classifing with the multi-variate Bernoulli event model and the loglikelihood output:
+
+> nb_classify -e 0 -f 1 data/test.samp data/nb0.mod data/nb0.out
+
+
+Additional Information
+======================
+
+For any questions and comments, please email rxia@nlpr.ia.ac.cn (or rxia.cn@gmail.com).
+
