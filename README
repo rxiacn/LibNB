@@ -10,7 +10,7 @@ Table of Contents
 
 Introduction
 ============
-XIA-NB is a C++ implementation of Naive Bayes Classifier, which is a well-known generative classification algorithm for the application such as text classification. The Naive Bayes algorithm requires the probabilistic distribution to be discrete. OpenPR-NB uses the multinomial event model for representation, the maximum likelihood estimate with a Laplace smoothing technique for learning parameters. A sparse-data structure is defined to represent the feature vector in OpenPR-NB to seek higher computational speed.
+XIA-NB is a C++ implementation of Naive Bayes Classifier, which is a well-known generative classification algorithm for applications such as text classification. The Naive Bayes algorithm requires the probabilistic distribution to be discrete. XIA-NB uses the multinomial event model for representation, the maximum likelihood estimate with a Laplace smoothing technique for learning parameters. A sparse-data structure is defined to represent the feature vector in XIA-NB to seek higher computational speed.
 
 
 Installation
